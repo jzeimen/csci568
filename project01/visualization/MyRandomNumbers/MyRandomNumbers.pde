@@ -22,8 +22,8 @@ void setup() {
      uncomment the one you wish to see*/
   //circles(numbers);
   //drawBarGraph(numbers);
-  
-  colorGrid(numbers, 50, 50, 70);
+  //colorGrid(numbers, 50, 50, 70);
+   colorGridWNumbers(numbers, 50, 50, 70);
   
 }
 
@@ -99,6 +99,37 @@ void colorGrid(int[] nums, float x, float y, float s) {
    rect((i % 10) * s, floor(i/10) * s, s, s);
  
  }
+ popMatrix();
+}
+
+
+//The class used to set font and draw text on screen
+PFont label;
+void colorGridWNumbers(int[] nums, float x, float y, float s) {
+  //Sets the font and size for labels
+   label = createFont("Helvetica", 24);
+  
+ int[] counts = new int[100];
+ //Fill it with zeros
+ for (int i = 0; i < 100; i++) {
+   counts[i] = 0;
+ };
+ //Tally the counts
+ for (int i = 0; i < nums.length; i++) {
+   counts[nums[i]] ++;
+ };
+ 
+ pushMatrix();
+ translate(x,y);
+ //Draw the grid
+ for (int i = 0; i < counts.length; i++) {
+   colorMode(HSB);
+   fill(counts[i] * 30, 255, 255, counts[i] * 30);
+   textAlign(CENTER);
+   textFont(label);
+   textSize(s/2);
+   text(i, (i % 10) * s, floor(i/10) * s);
+ };
  popMatrix();
 }
 
