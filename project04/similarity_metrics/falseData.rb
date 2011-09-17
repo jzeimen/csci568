@@ -1,6 +1,5 @@
 PEOPLE = %w(Joe Andy Nick Lydia Ada )
 
-
 MJSONGS = [ 
 	"Thriller",
 	"Beat It",
@@ -19,9 +18,11 @@ MJSONGS = [
 	"Heal the World"
 ]
 
-NO_SONGS = 2
+NO_SONGS = 10
 POSSIBLE_SONG_COUNTS = (1..50).to_a
 
+# Returns a hash of people with a value of a hash
+# That hash has keys of song names and values of song counts
 def get_song_counts() 
 	{}.tap do |song_counts|	
 		PEOPLE.each do |person|
@@ -34,6 +35,8 @@ def get_song_counts()
 	end
 end
 
+
+#Prints out the data from get_song_counts() in an easy-to-read way.
 def print_song_counts(song_counts)
 	song_counts.each do |person, counts|
 		puts person
