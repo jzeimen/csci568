@@ -47,3 +47,14 @@ def print_song_counts(song_counts)
 	end
 end
 
+class Market_Basket 
+	def initialize(a, b, c, d, e, f, g)
+		@apples 	= a
+		@bananas 	= b
+		@candy 		= c
+		@dates 		= d
+		@eclair 	= e
+		@frosting 	= f
+		@grapes 	= g
+	end
+end
