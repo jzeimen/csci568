@@ -1,0 +1,5 @@
+This is my first project ever in Ruby so if something should/could be done better let me know!
+
+testdistance.rb has a list of tests to test each function. Each expected value is hard coded to be calculated in that script. Then it is calculated by the function and tested to see if they match. 
+
+I use the instance variables in the objects to store the attributes.
