@@ -1,25 +1,11 @@
 #! /usr/bin/env ruby
 
 require 'sqlite3'
-
-class Flower 
-	def initialize(id,attributes,classID)
-		@id = id
-		@attributes = attributes
-		@classID = classID 
-	end
-	def to_s
-		string = String.new
-		@attributes.each { |x|  string += x.to_str + " "}
-		@id.to_s + " " + @classID.to_s + " " + string
-	end
-end
-
-
+require 'data_structures.rb'
 
 
 db = SQLite3::Database.new( "iris.sqlite3.db" )
-rows = db.execute2( "select * from iris" ) 
+rows = db.execute( "select * from iris" ) 
 
 flowers=Array.new
 
@@ -27,12 +13,11 @@ rows.each do |row|
 	 flowers.push(Flower.new(row[0], row[1..4], row[5]))
 end
 
-flowers.each {|x| puts x}
 
+centroid = Centroid.new("1",  [5.1, 3.5, 1.4, 0.2])
+centroid2 = Centroid.new("2",  [5.1, 3.5, 2.4, 1.2])
 
-def kmeans()
-
-
-end
-
+flowers[0].add_to_nearest_centroid([centroid, centroid2])
+puts centroid
+puts centroid2
 
