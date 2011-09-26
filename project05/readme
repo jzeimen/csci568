@@ -1,0 +1,3 @@
+Project to test K-Means algorithm against the Iris dataset. 
+
+Run main.rb to run the algorithm. The output will be the clusters found by the algorithm. 
