@@ -19,7 +19,7 @@ class Market_Basket
 end
 
 class Song_Counts
-	def initialize(a, b, c, d, e, f, g)
+	def initialize(a, b, c, d, z)
 		@song1= a
 		@song2= b
 		@song3= c
