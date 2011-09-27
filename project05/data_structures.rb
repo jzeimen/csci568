@@ -1,5 +1,5 @@
 class Flower 
-	attr_reader :attributes
+	attr_reader :attributes, :classID
 	def initialize(id,attributes,classID)
 		@id = id
 		@attributes = attributes
@@ -29,7 +29,7 @@ end
 
 
 class Centroid
-	attr_reader :attributes
+	attr_reader :attributes, :data_points
 	def initialize(id, attributes)
 		@id = id
 		@attributes = attributes

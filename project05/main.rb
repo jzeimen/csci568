@@ -39,9 +39,15 @@ end
 
 
 
-MAX_ITERATIONS.times do
+(1..MAX_ITERATIONS).each do |iter|
 	#Step 3: Attribute each datamember to centroid
+	flowers.each {|flower| flower.add_to_nearest_centroid(centroids)}
 	#Step 4: Center Centroids
+	centroids.each {|centroid| centroid.find_new_average}
 	#Step 5: Remove previous assignents from centroids.
-	break
+	centroids.each {|centroid| centroid.clear_members} if(iter != MAX_ITERATIONS) 
 end
+
+cluster = centroids[0].data_points
+cluster.each {|flower| puts flower.classID}
+
