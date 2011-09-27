@@ -46,7 +46,9 @@ class Centroid
 			#Finds the average of the column
 			column.reduce(0){|left, right| left.to_f+right.to_f}/column.length
 		end
-
+	end
+	def clear_members
+		@data_points.clear
 	end
 	def to_s
 		string = String.new
