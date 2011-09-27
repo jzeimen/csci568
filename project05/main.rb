@@ -5,7 +5,7 @@ require 'data_structures.rb'
 
 #Some variables we may want to tinker with
 NO_CENTROIDS = 3
-MAX_ITERATIONS = 100
+MAX_ITERATIONS = 10
 
 
 
@@ -38,16 +38,34 @@ centroids = Array.new
 end
 
 
-
+iterations = 0
 (1..MAX_ITERATIONS).each do |iter|
+	iterations = iter
+	
+	#Saves orphaned centroids by moving them somewhere else and trying again. 
+	centroids.each do |cent| 
+		cent.attributes = [maximum,minimum].transpose.map{|max,min| rand * (max.to_f-min.to_f) + min.to_f} if cent.attributes.size == 0
+	end
 	#Step 3: Attribute each datamember to centroid
-	flowers.each {|flower| flower.add_to_nearest_centroid(centroids)}
+	flowers.each do |flower|
+		flower.add_to_nearest_centroid(centroids)
+	end
+
 	#Step 4: Center Centroids
 	centroids.each {|centroid| centroid.find_new_average}
 	#Step 5: Remove previous assignents from centroids.
 	centroids.each {|centroid| centroid.clear_members} if(iter != MAX_ITERATIONS) 
 end
 
-cluster = centroids[0].data_points
-cluster.each {|flower| puts flower.classID}
 
+puts 
+sse = 0.0
+centroids.each do |centroid| 
+	puts "Cluster id: " + centroid.id.to_s + "\tNumber of elements: " + centroid.size.to_s
+	cluster = centroid.data_points
+	cluster.each do |flower| 
+		sse+= flower.distance(centroid)**2
+	end
+end
+
+puts "Total SSE: " + sse.to_s

@@ -11,10 +11,12 @@ class Flower
 		@id.to_s + " " + @classID.to_s + " " + string
 	end
 
-	def distance( otherFlower )
+	def distance( other )
+		puts @attributes.length.to_s + " @attributes.length" if @attributes.length != 4
+		puts other.attributes.length.to_s + " other.attributes.length" if other.attributes.length != 4
 		# Euclidean Distance. Takes both arrays find the difference between elements,
 		# square them then add them together and finally find the square root. 
-		Math.sqrt([@attributes, otherFlower.attributes].transpose.map{|x,y| (x.to_f-y.to_f)**2}.reduce(0, :+))
+		Math.sqrt([@attributes, other.attributes].transpose.map{|x,y| (x.to_f-y.to_f)**2}.reduce(0, :+))
 	end
 
 	#returns true if it is using the same centroid as previously used
@@ -29,7 +31,8 @@ end
 
 
 class Centroid
-	attr_reader :attributes, :data_points
+	attr_reader :data_points, :id
+	attr_accessor :attributes
 	def initialize(id, attributes)
 		@id = id
 		@attributes = attributes
@@ -37,6 +40,9 @@ class Centroid
 	end
 	def push item
 		@data_points.push item
+	end
+	def size
+		@data_points.length
 	end
 	def find_new_average
 		temp_array = Array.new
