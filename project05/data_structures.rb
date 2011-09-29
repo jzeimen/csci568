@@ -1,4 +1,4 @@
-class Flower 
+class Flower  
 	attr_reader :attributes, :classID
 	def initialize(id,attributes,classID)
 		@id = id
@@ -53,8 +53,14 @@ class Centroid
 			column.reduce(0){|left, right| left.to_f+right.to_f}/column.length
 		end
 	end
+	def get_class_hash
+		@data_points.reduce(Hash.new(0)) { |h,v| h[v.classID] += 1; h }
+	end
 	def clear_members
 		@data_points.clear
+	end
+	def sse
+		@data_points.each.map{|flower| flower.distance(self)}.reduce(0){|prev, dis| prev+= dis }
 	end
 	def to_s
 		string = String.new

@@ -1,3 +1,7 @@
 Project to test K-Means algorithm against the Iris dataset. 
 
-Run main.rb to run the algorithm. The output will be the clusters found by the algorithm. 
+Run main.rb to run the algorithm. libsqlite 3 is required. 
+
+ The output will be the clusters found by the algorithm. SSE for each cluster, and how many of each class of flower is in that cluster.
+
+ Following output from clusters will be the overall SSE for the clustering. 
