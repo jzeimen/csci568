@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
 
 require 'sqlite3'
-require 'data_structures.rb'
+require './data_structures.rb'
 
 #Some variables we may want to tinker with
 NO_CENTROIDS = 3
