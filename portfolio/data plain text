@@ -1,0 +1,92 @@
+Data and Data Quality
+
+Intro:
+
+Data Set Types and Attribute Types
+
+	A data set is simply a collection of data points. A data point has a collection of attributes associated with it. One way to think of its a dataset is a table in a database anda a datapoint is a row in that database. One of the elements in that row is an attribute of the datapoint. 
+
+
+	An attribute describes a property of a data point. This is something that could vary from one data point to another or may change over time for a specific datapoint. There are different types of attributes with their own meanings when it comes to data mining. Here is a list of some major break downs given in the book Introduction to Data Mining1:
+	Qualitative
+		Nominal - These are values with out an ordering to them. They are just names or identifiers given to an object. An example would be an ID number, hair color, company etc. You can only compare these values by testing for equality or not. 
+		Ordinal - These values do have order, however they still are discrete. An example would be small, medium, large; or cold, warm, hot. You can compare these values based on order and equality, not a numeric distance from one to the other. 
+
+	Quantitative
+		Interval - This type of attribute's numeric value has meaning in the real world and the difference between it and other attributes has meaning. An example would be temperature in celsius, or the current time. You can compare these attributes by seeing how far away from each other they are and quantifiying it.
+		Ratio - A ratio is compared to other ratios by examining the difference between values as well as the ratio between values. For example you can compare temperatures in Kelvin, counts, age. 
+
+	Taking into account the types of attributes is important in data mining, because eventually all the data is represented by a number in a computer anways. Let us say that a data point has a color which is a nominal attribute. There is red, green, blue, and pink. Then you assign each of those colors with the numbers 1, 2, 3, and 4 respectivly. Knowing that it is a nominal attribute must be taken into consideration otherwise you might try to compare by finding the difference between 2 and 3. In reality that is trying to quantify the distance between green and blue, which does not make sense. 
+
+	The data set which is made up of the attributes and data points can also be characterized. Here is a list of some of those characteristics summarized from Introduction to Data Mining:
+
+	Dimensionality - This is simply the number of attributes each of the data points in the data set possesses. Data sets with a higher dimentionality are generally more difficult to mine. 
+	Sparsity - When some attributes have no value or almost all of them have the same value it is called sparse. Market basket data is a great example of this. In most transactions, most people do not purchase most of the items in the store. 
+	Resolution - For how big the domain of data is, how many data points do you have? An example of this is when data is collected hourly for air pressure. With this sort of data we can determine weather during the day. However taking a sample each month tells us nothing about the hourly weather. 
+
+
+Data Quality
+	A limitation to data mining is the quality of data used. Many times the data is collected by a person and entered into a database later. The data is subject to human error. Finding and correcting the data can improve the data mining results. Sometimes values are simply missing, other times a value that is not possible for example a person's height being 10 ft. Noise can also affect the data quality. Too much noise and the pattern becomes hidden.
+	
+	There are different ways to try and clean up the data set to make it sutable for data mining. One of the easiest ways is to simply eliminate a data point from the set. This is however eliminating some usefull data. Another way is to try to estimate the data  using a mean median or mode of the data. An inerpolation can also be used to estimate the data inbetween samplings. For those data points that are still used, but without reliable data it is possible to sometimes use algorithms that can ignore the missing or incorrect data. 
+
+Data Exploration
+	
+	Before doing any mining of data a data scientist should take a look at what data he or she has. Data exploration gives a very high level view of the data and can help in guiding what mining stratagies and algorithms will help to produce the best results later on. Data exploration helps to answer the types of questions:
+		What types of attributes does my data have?
+		What data is nominal but may be seen as ordinal? (id numberes etc.)
+		Are there any missing values?
+	
+	It is also a good idea to get some summary statistics on the data. Summary statistics are some of the most basic measures of data using statistics, such as: frequencies, standard deviation, mean, median, mode, percentiles, range, variance, etc. These statistics alone can sometimes reveal interesting trends in the data and they help to hone your approach in mining the data. 
+
+	Here is a screen shot of the program Weka providing statistics on the iris data set:
+
+
+		{INSERT WEKA SCREENSHOT}
+
+Data Vizualization
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
