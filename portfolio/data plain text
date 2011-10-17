@@ -46,7 +46,18 @@ Data Exploration
 
 Data Vizualization
 
+	Data visualizatin is simply displaying the information in a graphical formatDuring the mining process it is important to visualize the data to help see trends that a computer may not see as easily. After the mining is done visulaization is a way for others to easily see the fruits of your data mining. This can help somone else understand the data as well as promote an action to be taken based on what the data is telling you. 
 
+	A common application to do data visualization on is Processing. It uses Java so you have the functionality of any Java library. It makes it very easy to visualize data as well as interact with the data. 
+	
+	The image below was made using processing to visualize human generated random numbers. The more opaque a number is the more times it was "randomly" selected by a human. Notice how easy it is to see that any number ending with a 7 was selected more often. 
+
+	[Insert processing screenshot]
+
+
+
+
+	http://blog.blprnt.com/blog/blprnt/your-random-numbers-getting-started-with-processing-and-data-visualization
 
 
 
