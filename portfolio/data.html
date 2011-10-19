@@ -16,15 +16,62 @@
 </head>
 <body>
 <div class="container">
-  <h1>Data Mining Portfolio</h1>
+  <h1><a href="./index.html">Data Mining Portfolio</a></h1>
   <h2>Data and Data Quality</h2>
-  <p class="introduction">Your description of this strategy in your own words. Be descriptive... history, algorithm/principles it is based on, types of datasets this strategy is meant for, what it does, how it does it, benefits and limitations, etc.</p>
-  <pre class="code">
-#
-# the python implementation here
-#
-#
-  </pre>
+  <p class="introduction"></p>
+  <h3>Data Set Types and Attribute Types</h3>
+  <p>A data set is simply a collection of data points. A data point has a collection of attributes associated with it. One way to think of its a dataset is a table in a database and a data point is a row in that database. One of the elements in that row is an attribute of the data point. Attributes have a type.  Here is a list of some major breakdowns of different types given in the book Introduction to Data Mining:<sup>1</sup></p>
+
+  <h4>Qualitative</h4>
+  	<ul>
+  	<li>Nominal - These are values with out an ordering to them. They are just names or identifiers given to an object. An example would be an ID number, hair color, company etc. You can only compare these values by testing for equality.</li>
+  	<li>Ordinal - These values do have order, however they still are discrete. An example would be small, medium, large; or cold, warm, hot. You can compare these values based on order and equality, not a numeric distance from one to the other.</li>
+  	</ul>
+  <h4>Quantitative</h4>
+	<ul>
+  	<li>Interval - This type of attribute's numeric value has meaning in the real world and the difference between it and other attributes has meaning. An example would be temperature in Celsius, or the current time. You can compare these attributes by seeing how far away from each other they are and quantifying it.</li>
+  	<li>Ratio - A ratio is compared to other ratios by examining the difference between values as well as the ratio between values. For example you can compare temperatures in Kelvin, counts, age. </li>
+  	</ul>
+  <p>Taking into account the types of attributes is important in data mining, because eventually all the data is represented by a number in a computer. Let us say that a data point has a color, which is a nominal attribute. There is red, green, blue, and pink. Then you assign each of those colors with the numbers 1, 2, 3, and 4 respectively. Knowing that it is a nominal attribute must be taken into consideration otherwise you might try to compare by finding the difference between 2 and 3. In reality this is trying to quantify the distance between green and blue, which does not make sense. </p>
+  <p>The data set, which is made up of the attributes and data points, can also be characterized. Here is a list of some of those characteristics summarized from Introduction to Data Mining:</p>
+  <ul>
+  <li>Dimensionality - This is simply the number of attributes each of the data points in the data set possesses. Data sets with a higher dimensionality are generally more difficult to mine. </li>
+  <li>Sparsity - When some attributes have no value or almost all of them have the same value it is called sparse. Market basket data is a great example of this. In most transactions, most people do not purchase most of the items in the store. </li>
+  <li>Resolution - For how large the domain of data is, how many data points do you have? An example of this is when data is collected hourly for air pressure. With this sort of data we can determine weather during the day. However taking a sample each month tells us nothing about the hourly weather. </li>
+  </ul>
+
+  <h3>Data Quality</h3>
+  	<p>A limitation to data mining is the quality of data used. Many times the data is collected by a person and entered into a database later. The data is subject to human error. Finding and correcting the data can improve the data mining results. Sometimes values are simply missing, other times a value that is not possible for example a person's height being 10 ft. Noise can also affect the data quality. Too much noise and the pattern becomes hidden.</p>
+  	<p>There are different ways to try and clean up the data set to make it suitable for data mining. One of the easiest ways is to simply eliminate a data point from the set. This is however eliminating some useful data. Another way is to try to estimate the missing attribute using a mean median or mode of the data. An interpolation can also be used to estimate the data in between samplings. For those data points that are still used, it is possible to sometimes use algorithms that can ignore the missing or incorrect data. <sup>2</sup></p>
+
+  <h3>Data Exploration</h3>
+  	<p>Before doing any mining of data a data scientist should take a look at what data he or she has. Data exploration gives a very high level view of the data and can help in guiding what mining strategies and algorithms will help to produce the best results later on. Data exploration helps to answer the types of questions:</p>
+  		<ul>
+  			<li>What types of attributes does my data have?</li>
+  			<li>What data is nominal but may be seen as ordinal? (id numberes etc.)</li>
+  			<li>Are there any missing values?</li>
+  		</ul>
+  	<p>	It is also a good idea to get some summary statistics on the data. Summary statistics are some of the most basic measures of data using statistics, such as: frequencies, standard deviation, mean, median, mode, percentiles, range, variance, etc. These statistics alone can sometimes reveal interesting trends in the data and they help to hone your approach in mining the data. </p>
+
+
+  	<p>Here is a screen shot of the program Weka providing statistics on the iris data set: <br>
+  	</p>
+  	<img src="images/summary_stats.png">
+  	<br>
+  	<h3>Data Visualization</h3>
+	<p>Data visualization is simply displaying the information in a graphical format. During the mining process it is important to visualize the data to help see trends that a computer may not see as easily. After the mining is done visualization is a way for others to easily see the fruits of your data mining. This can help someone else understand the data as well as promote an action to be taken based on what the data is saying. </p>
+	<p>A common application to do data visualization on is Processing. It uses Java so you have the functionality of any Java library. It makes it very easy to visualize data as well as interact with the data. </p>
+	
+	<p>The image below was made using processing to visualize human generated random numbers. The more opaque a number is the more times it was "randomly" selected by a human. Notice how easy it is to see that any number ending with a 7 was selected more often.<sup>3</sup></p> 
+
+	<img src="images/data_viz_example.png">
+
+
+	<h3>References</h3>
+	<p><sup>1</sup> Tan, Pang-Ning, Michael Steinbach, and Vipin Kumar. Introduction to Data Mining. Boston: Addison Wesley, 2006. <br>
+	<sup>1</sup> Segaran, Toby, and Jeff Hammerbacher. Beautiful Data: The Stories Behind Elegant Data Solutions. 1st. Beijing: O'Reilly, 2009. <br>
+	<sup>3</sup> <a href="http://blog.blprnt.com/blog/blprnt/your-random-numbers-getting-started-with-processing-and-data-visualization"> http://blog.blprnt.com/blog/blprnt/your-random-numbers-getting-started-with-processing-and-data-visualization</a></p>
+
 </div>
 </body>
 </html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Clustering</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1><a href="index.html">Data Mining Portfolio</a></h1>
+  <h2>K-Means Ruby Impelmentation</h2>
+ 
+  <p class="introduction">This program uses the <a href="iris.sqlite3.db"> iris dataset</a>.</p>
+  
+  <pre class="code">
+#! /usr/bin/env ruby
+
+
+
+require 'sqlite3'
+require './data_structures.rb'
+
+#Some variables we may want to tinker with
+NO_CENTROIDS = 3
+MAX_ITERATIONS = 10
+
+
+
+#Get data out of the database and into something easier to use
+db = SQLite3::Database.new( "iris.sqlite3.db" )
+rows = db.execute( "select * from iris" ) 
+
+
+
+#Step 1: Get list of data points ready.
+flowers=Array.new
+rows.each do |row|
+	 flowers.push(Flower.new(row[0], row[1..4], row[5]))
+end
+
+
+#Step 2: Get centroids ready
+#Calculate Max and Min for each attribute
+temp_array = Array.new
+flowers.each do |flower|
+	temp_array.push(flower.attributes)
+end
+maximum = temp_array.transpose.map{ |x| x.reduce(x.first){|prev, this|  prev.to_f > this.to_f ? prev : this}}
+minimum =  temp_array.transpose.map{ |x| x.reduce(x.first){|prev, this|  prev.to_f < this.to_f ? prev : this}}
+
+centroids = Array.new
+#Create NO_Centroids
+(1..NO_CENTROIDS).each do |id_number| 
+	centroids.push(Centroid.new(id_number, [maximum,minimum].transpose.map{|max,min| rand * (max.to_f-min.to_f) + min.to_f}))
+end
+
+
+iterations = 0
+(1..MAX_ITERATIONS).each do |iter|
+	iterations = iter
+	
+	#Saves orphaned centroids by moving them somewhere else and trying again. 
+	centroids.each do |cent| 
+		cent.attributes = [maximum,minimum].transpose.map{|max,min| rand * (max.to_f-min.to_f) + min.to_f} if cent.attributes.size == 0
+	end
+	#Step 3: Attribute each datamember to centroid
+	flowers.each do |flower|
+		flower.add_to_nearest_centroid(centroids)
+	end
+
+	#Step 4: Center Centroids
+	centroids.each {|centroid| centroid.find_new_average}
+	#Step 5: Remove previous assignents from centroids.
+	centroids.each {|centroid| centroid.clear_members} if(iter != MAX_ITERATIONS) 
+end
+
+
+puts 
+sse = 0.0
+cluster_sse =0.0
+centroids.each do |centroid| 
+	puts "Cluster id: " + centroid.id.to_s + "\tNumber of elements: " + centroid.size.to_s
+	puts "Cluster SSE: " + centroid.sse.to_s
+	centroid.get_class_hash.each_key{|key| puts key.to_s + "\t" + centroid.get_class_hash[key].to_s}
+
+	cluster_sse+=centroid.sse
+	cluster = centroid.data_points
+	cluster.each do |flower| 
+		#Uncomment the next line to see detailed output for flowers
+		#puts flower
+		sse+= flower.distance(centroid)**2
+	end
+	puts
+	puts
+end
+
+puts "Total SSE: " + sse.to_s
+puts "Per Cluster SSE Average: " + (cluster_sse/NO_CENTROIDS).to_s
+  </pre>
+
+
+  <p>data_structures.rb</p>
+  <pre class="code">
+class Flower  
+	attr_reader :attributes, :classID
+	def initialize(id,attributes,classID)
+		@id = id
+		@attributes = attributes
+		@classID = classID 
+	end
+	def to_s
+		string = String.new
+		@attributes.each { |x|  string += x.to_s + " "}
+		@id.to_s + " " + @classID.to_s + " " + string
+	end
+
+	def distance( other )
+		puts @attributes.length.to_s + " @attributes.length" if @attributes.length != 4
+		puts other.attributes.length.to_s + " other.attributes.length" if other.attributes.length != 4
+		# Euclidean Distance. Takes both arrays find the difference between elements,
+		# square them then add them together and finally find the square root. 
+		Math.sqrt([@attributes, other.attributes].transpose.map{|x,y| (x.to_f-y.to_f)**2}.reduce(0, :+))
+	end
+
+	#returns true if it is using the same centroid as previously used
+	def add_to_nearest_centroid(centroids)
+		nearest = centroids.reduce(centroids.first){|closest, current| self.distance(closest) < self.distance(current) ? closest : current}
+		nearest.push self
+		return_val = @centroid == nearest ? true : false
+		@centroid = nearest
+		return_val
+	end
+end
+
+
+class Centroid
+	attr_reader :data_points, :id
+	attr_accessor :attributes
+	def initialize(id, attributes)
+		@id = id
+		@attributes = attributes
+		@data_points = Array.new
+	end
+	def push item
+		@data_points.push item
+	end
+	def size
+		@data_points.length
+	end
+	def find_new_average
+		temp_array = Array.new
+		@data_points.each {|row| temp_array.push row.attributes}
+		#Seperates the data into columns
+		@attributes=temp_array.transpose.map do |column| 
+			#Finds the average of the column
+			column.reduce(0){|left, right| left.to_f+right.to_f}/column.length
+		end
+	end
+	def get_class_hash
+		@data_points.reduce(Hash.new(0)) { |h,v| h[v.classID] += 1; h }
+	end
+	def clear_members
+		@data_points.clear
+	end
+	def sse
+		@data_points.each.map{|flower| flower.distance(self)}.reduce(0){|prev, dis| prev+= dis }
+	end
+	def to_s
+		string = String.new
+		@attributes.each { |x|  string += x.to_s + " "}
+		@id.to_s + " " + @classID.to_s + " " + string + @data_points.length.to_s
+	end
+end
+
+  </pre>
+</div>
+</body>
+</html>

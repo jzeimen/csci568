@@ -1,11 +1,11 @@
 Similarity Metrics
 
-Similarity metrics simply quantify how similar one data point is to another. This could be distance in space, how many matching attributes each data point has or how close those attributes are based on each other. The end goal is to compare 2 points and have a number representing how related they are. Different similarity metrics are usefull for different tasks. Some are good for sparse market basket data, some are better for physical space. Because the input and output from the metrics is the same for the different metrics, they can be switched out in algorithms without much aditional effort to produce different results. 
+Similarity metrics simply quantify how similar one data point is to another. This could be distance in space, how many matching attributes each data point has or how close those attributes are based on each other. The end goal is to compare 2 points and have a number representing how related they are. Different similarity metrics are useful for different tasks. Some are good for sparse market basket data, some are better for physical space. Because the input and output from the metrics is the same for the different metrics, they can be switched out in algorithms without much additional effort to produce different results. 
 
 
 
 Euclidian Distance
-	This similarity metric is finding the distance in Euclidian space between two objects. This is great for measuring distance in physical space. It is also good for continous data. The euclidian distance is the same as finding the distance between 2 points on a graph, it is just extended to however many dimensions you need. 
+	This similarity metric is finding the distance in Euclidian space between two objects. This is great for measuring distance in physical space. It is also good for continuous data. The Euclidian distance is the same as finding the distance between 2 points on a graph, it is just extended to however many dimensions you need. 
 
 	[Insert euclidian distance latex here]
 
@@ -16,7 +16,7 @@ Euclidian Distance
 
 
 Cosine Similarity
-	Mathematically cosin similarity is determining the angle between two vectores. If data can be represented as a vector in this way we can compare the similarity. This is great for comparing documents to see if they are using the same words. A vector can be created by counting each of the words in a document and comparing that with another document. The cosine similarity of two vectors is simply:
+	Mathematically cosine similarity is determining the angle between two vectors. If data can be represented as a vector, we can compare the similarity. This is great for comparing documents to see if they are talking about the same topic. A document vector is created, by counting the occurrences of words in each of the documents. Finding the angle between the two vectors can show how similar they are. The cosine similarity of two vectors is simply:
 
 	[insert cosine similarity pic]
 
@@ -50,6 +50,7 @@ def jaccard_coefficient(dis,dat)
 	end
 	matching_attributes/denominator
 end
+
 
 
 

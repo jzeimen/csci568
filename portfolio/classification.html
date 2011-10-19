@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
-<title>NAME OF DATA MINING STRATEGY</title>
+<title>Classification</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="author" content="" />
@@ -17,14 +17,150 @@
 <body>
 <div class="container">
   <h1>Data Mining Portfolio</h1>
-  <h2>Name of Strategy</h2>
-  <p class="introduction">Your description of this strategy in your own words. Be descriptive... history, algorithm/principles it is based on, types of datasets this strategy is meant for, what it does, how it does it, benefits and limitations, etc.</p>
-  <pre class="code">
-#
-# the python implementation here
-#
-#
-  </pre>
+  <h2>Classification</h2>
+  <p class="introduction">Classification is the act of taking a data point without a class label and applying a label to it. Clustering is similar to clustering in that it places data points into groups. However in clustering the groups are not known before hand. In classification we already know what class the data points could be. Classification works better when using nominal and binary data and has more trouble when it comes to continuous attributes. When continuous attributes are involved the data is usually discretized to be useful in the classification algorithm. </p>
+  <p>Classification can be used in situations where we know information about something now and are trying to predict what will happen in the future based on knowledge of past instances. An example of this would be a website which has a free version and a paid version. Based on usage statistics and other metrics we could predict who is likely to use the paid version. This can be done by looking at past data and observing patterns. The class labels could simply be paid member or free member.</p>
+
+
+  <h3>Classification Process</h3>
+  <p>	The usual classification process starts with test data with known class labels. This data is then split into two groups. 1/3 is for testing and 2/3 is for training. A model is built from the training set and then tested against the test set. After the model is able to successfully produce good results against the test data it can then be used to classify unknown data points. </p>
+
+  <p>	How well a model can predict classes can be described in a confusion matrix or with accuracy and error rates. A confusion matrix simply shows a table with one axis being the actual class labels and on the other the predicted class labels. The values inside of the tables represent the counts based on what the predicted class was and what the actual class was. See the example below. To calculate accuracy you just sum the diagonal (where the predicted and the actual are the same), and divide that by the total of all of the entries in the table. A similar metric is the error rate, which is summing all of the entries where the actual does not equal the predicted class label and divide that by the total of all of the entries in the table. Gini impurity, also below, is the measure of how often a random element would be classified as the wrong label when considering the distribution of labels in the set. See the equation to calculate this below.</p>
+
+  <h3>Decision Tree</h3>
+  <p>	When we think of classifying data we sometimes think of asking a data point questions about it then deciding what bin to place it in. A decision tree does this with a tree of questions. Each question is meant to purify the data by asking questions that perform the best splits to obtain this data. For large trees it is impossible to come up with the optimal tree to classify data, however there are many algorithms that try to approximate this ideal tree. </p>
+  <p>One way to construct a decision tree is to use Hunt's Algorithm. This recursive algorithm starts with a root node with all training data points inside. It then performs the following steps:</p>
+  <ol>
+  	<li>If all of the records in this leaf node are of the same class. If they are then this leaf node is labeled with that class. </li>
+  	<li>If all of the records are not of the same class. An attribute is chosen from the data and for each possible value a new node is created. All of the data points in the current node are then distributed to the new leaf nodes based on the outcome of the question it has just created. </li>
+  </ol>
+
+  <p>	Hunt's Algorithm is very simple and there is much room for improvement. One of the first improvements that can be made is to try different splits on the data to see which one creates more pure leaf nodes. If there is no attribute to split on that improves the purity them maybe the algorithm should stop and just label that node with the majority class. </p>
+  <p>	Some possible errors to watch out for, as with all classification algorithms is over fitting or under fitting the model. By letting all of the leaf nodes become pure we may be trying to fit data points into too tight of boxes and have a larger error. If we ask too few questions and have very impure leaf nodes our error will also go up. A balance between the two may involve pre or post pruning of the tree to allow it to best fit the data. </p>
+
+  <h4>Pros:</h4>
+  <ul>
+  	<li>Fast to classify new data points</li>
+  	<li>Very easy to interpret, you can look at the tree and understand what questions are asked</li>
+  	<li>Good with noise</li>
+  </ul>
+  <h4>Cons:</h4>
+  <ul>
+  	<li>NP-complete to produce a perfect tree</li>
+  	<li>Rectilinear boundary</li>
+  	<li>Data fragmentation, it becomes harder to have statistic significance with smaller numbers of data points as the tree is built</li>
+  </ul>
+
+
+  <h3>Rule Based Classifiers</h3>
+  <p>	A rule based classifier is very much similar to a decision tree in that we ask yes or no questions to data and determine what bin to put the data point in. Instead of using a tree structure a list of rules are used that are generated from a test data set that describe a certain class of data. A data points is put up against each of these rules until one is triggered and then it is marked with the class label that the rule is attributed to. Some implementations will try and test it against every rule and mark it with the majority decision of the rules that the data point triggered. Other implementations simply have a specific order of rules so that even though a data point can trigger multiple rules, it will only belong to the class the first rule it triggered has. <p>
+
+
+  <p>An example of a rule based classifier for living things:</p>
+<pre class="code">
+  	1) (warmblooded = yes) and (has hair = yes) and (gives live birth = yes) => mammal
+	2) (warm blooded = no) and (flies = yes) and (eats plants = yes ) => insect
+	3) (warm blooded =  yes) and (flies = yes) and (eats plants = yes) => bird
+	...
+</pre>
+
+<h4>Pros:</h4>
+<ul>
+<li>Fast to classify</li>
+<li>Same as the tree, but with the added ability to trigger multiple rules</li>
+<li>Easy to interpret</li>
+</ul>
+<h4>Cons:</h4>
+<ul>
+<li>Very hard to be exhaustive in the rules</li>
+<li>Rectilinear boundary</li>
+</ul>
+
+
+
+<h3>Nearest Neighbor Classifiers</h3>
+<p>	Nearest neighbor classifiers are one of the simplest to understand. They are lazy learners which means that they don't produce a model except for the training data itself. Nearest neighbor algorithms simply take a data point that needs to be classified and uses a similarity metric to calculate the distance between the unknown data point and all other data points in the training data. The algorithm then looks at the closest points to the unknown data point and attributes the class label of its nearest neighbors to it. A number k is chosen to decide how many nearest neighbors to look at. If there are more than one class label for the nearest neighbors, the majority is used. </p>
+<p>	It is important that the attributes are normalized in some way when calculating the similarity. An example of this is say you have a height of person in feet, and their SAT score. When calculating the distance between two points the SAT score is going to weigh much more heavily than the height. In some cases this is desirable, and it really is domain specific. </p>
+
+<h4>Pros:</h4>
+<ul>
+<li>Good with continuous attributes because you do not have to discritize the data. </li>
+<li>Don't need to build model before hand</li>
+<li>Very easy to implement</li>
+</ul>
+<h4>Cons:</h4>
+<ul>
+<li>Computationally intensive to classify</li>
+<li>Susceptible to noise</li>
+</ul>
+
+
+<h3>Bayesian Classifiers</h3>
+<p>	In Bayesian Classifiers use Bayes' Theorem from probability to calculate the most likely class label to attribute to a data point. Bayes theorem calculates the posterior probabilities of something. This is simply given some evidence, what is the probability it falls into a specific class. This is evaluated for each class and the strongest probability is attributed to the data point. To classify and see if it will rain today we could do the following.</p>
+<img src="images/bay_rain.gif"><br><br>
+<img src="images/bay_norain.gif">
+
+<p>	The highest posterior probability will decide which class label the data point is to be given. </p>
+
+
+<h4>Pros:</h4>
+<ul>
+<li>Great against noise </li>
+<li>Can be implemented to handle missing data easily</li>
+<li>Good against irrelevant details</li>
+<li>Fast to model and classify</li>
+</ul>
+<h4>Cons:</h4>
+<ul>
+<li>Difficult to use for continuous data without discretization</li>
+</ul>
+
+
+
+<h3>Artificial Neural Network</h3>
+<p>ANNs are inspired by neural networks in the brain and how they learn. The neurons in the brain form links with one another. When the brain receives impulses the connections between neurons either strengthen or weaken. Repeated impulses train the neurons to behave a certain way based on input</p>
+<p>The same concept is carried over into Artificial Neural Networks. Data is processed by layers of artificial neurons with directed connections down the layers. The weight of each of these connections needs to be calculated so that error is minimized when data points are classified with the algorithm. This is done by training the ANN with test data and determining what comes out of the ANN and adjusting weights accordingly.</p>
+
+<h4>Pros:</h4>
+<ul>
+<li>Can handle redundant features</li>
+<li>Fast post model classification</li>
+</ul>
+<h4>Cons:</h4>
+<ul>
+<li>Very difficult to understand the model once it has been made</li>
+<li>Computationally intensive to build the model</li>
+<li>Sensitive to noise</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </body>
 </html>
