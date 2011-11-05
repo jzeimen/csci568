@@ -1,4 +1,32 @@
 class ANN
+	def initialize(input_size, hidden_layer_size ,output_size)
+		input_size.times {@input.push( Neuron.new )}
+		hidden_layer.times { @hidden_layer.push(Neuron.new)}
+		output_size.times{output.push(Neruon.new)}
+
+		@input.each do |i|
+			@hidden_layer.each do |h|
+				@input_weights.push(Connection.new(h,i))
+			end
+		end
+
+
+		@hidden_layer.each do |h|
+			@output.each do |o|
+				@output_weights.push(Connection.new(o,h))
+			end
+		end
+	end
+
+	def setInputs(inputs)
+		return if inputs.size != @input.size
+		[inputs,@input].transpose.each {|number,node| node.weight=number}
+	end
+
+	def getOutputs()
+		@output.map{|o| o.calculate_output}
+	end
+
 
 end
 
@@ -11,7 +39,8 @@ class Connection
 		@output = output_node
 		@input = input_node
 		@weight = puts Random.new.rand(-1.0..1.0)
-		@input
+		input.outputs.push(self)
+		output.inputs.push(self)
 	end
 end
 
