@@ -25,7 +25,7 @@ See main.rb for an example of how these functions are used
 Some observations:
 
 
-Different functions can be used as the output for each node. Using a sigmoid function, such as tanh(),  makes it impossible to really get to -1 or 1 since it runs asymtotically to -1 and 1. The more training iterations the closer they get, but it still doesn't get that close. Using a linear function, such as just using the sum of the weights times the inputs, makes it so it will converge very quicly. With the rounding errors of floating points we can get to exactly the correct solutions. I'm leaving it as the sigmoid function for now. There are places in the sigmoid() and dsigmoid() functions to switch it back to linear.
+Different functions can be used as the output for each node. Using a sigmoid function, such as tanh(),  makes it impossible to really get to -1 or 1 since it runs asymtotically to -1 and 1. The more training iterations the closer they get, but it still doesn't get that close. Using a linear function, such as just using the sum of the weights times the inputs, makes it so it will converge very quicly. With the rounding errors of floating points we can get to exactly the correct solutions. I'm leaving it as the linear function for now. There are places in the sigmoid() and dsigmoid() functions to switch it back to sigmoid.
 
 
 Increasing the number of iterations in training when using a sigmoid function after a while did very little to improve results. Usually you wouldn't want to get exact numbers in an ANN anyways. 

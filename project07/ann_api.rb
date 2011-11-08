@@ -155,9 +155,10 @@ end
 #Putting it here lets us swap it out later to decide on the best
 #function
 def sigmoid(number)
-	Math.tanh(number)
+	#uncoment for sigmoid
+	#Math.tanh(number)
 	#Change to number if we want linear (easier to debug)
-	#number
+	number
 end
 
 #The derivative of the sigmoid function, Collective Intellegence uses 1-number*number
@@ -165,9 +166,10 @@ end
 #greater than 1 and less than -1, and the sigmoid function is always positive,
 #Thanks to wolframalpha this is the actual derivative
 def dsigmoid(number)
-	(4*Math.cosh(number)**2)/(1+Math.cosh(2*number))**2
+	#uncoment for sigmoid
+	#(4*Math.cosh(number)**2)/(1+Math.cosh(2*number))**2
 	#change return value to 1 if we are doing it linearly like above (easier to debug)
-	#1
+	1
 end
 
 
