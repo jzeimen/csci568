@@ -53,7 +53,7 @@ class ANN
 		end
 	end
 
-	
+	################################################################################################################################
 	private
 
 	#Pushes information through the ANN. This function fires each of the neurons
@@ -93,25 +93,7 @@ class ANN
 end
 
 
-#A the function we use to calculate the output of a node,
-#Putting it here lets us swap it out later to decide on the best
-#function
-def sigmoid(number)
-	Math.tanh(number)
-	#Change to number if we want linear (easier to debug)
-	#number
-end
-
-#The derivative of the sigmoid function, Collective Intellegence uses 1-number*number
-#I will be using a better approximation since the sum of the weights*values can be
-#greater than 1 and less than -1, and the sigmoid function is always positive,
-#Thanks to wolframalpha this is the actual derivative
-def dsigmoid(number)
-	(4*Math.cosh(number)**2)/(1+Math.cosh(2*number))**2
-	#change return value to 1 if we are doing it linearly like above (easier to debug)
-	#1
-end
-
+#Would like the rest of this to be private, not exactly sure if you can do that in ruby?
 
 #Just an object to hold a weight and a value representing the connections between
 #neurons
@@ -166,4 +148,26 @@ class Neuron
 	attr_accessor :error, :delta
 
 end
+
+
+
+#A the function we use to calculate the output of a node,
+#Putting it here lets us swap it out later to decide on the best
+#function
+def sigmoid(number)
+	Math.tanh(number)
+	#Change to number if we want linear (easier to debug)
+	#number
+end
+
+#The derivative of the sigmoid function, Collective Intellegence uses 1-number*number
+#I will be using a better approximation since the sum of the weights*values can be
+#greater than 1 and less than -1, and the sigmoid function is always positive,
+#Thanks to wolframalpha this is the actual derivative
+def dsigmoid(number)
+	(4*Math.cosh(number)**2)/(1+Math.cosh(2*number))**2
+	#change return value to 1 if we are doing it linearly like above (easier to debug)
+	#1
+end
+
 

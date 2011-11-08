@@ -30,3 +30,5 @@ Different functions can be used as the output for each node. Using a sigmoid fun
 
 Increasing the number of iterations in training when using a sigmoid function after a while did very little to improve results. Usually you wouldn't want to get exact numbers in an ANN anyways. 
 
+Would like to know how to get the sigmoid() and dsigmoid() helper functions to be private. So that only the classes in the ann_api.rb file can use them, not sure if that's possible.
+
