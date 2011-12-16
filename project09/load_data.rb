@@ -10,6 +10,7 @@ def load_data
 	User.delete_all
 	Trackrating.delete_all
 	Genrerating.delete_all
+	Validationrating.delete_all
 
 	 puts "Loading genres..."
 	 # loads genres into the database
@@ -58,6 +59,20 @@ def load_data
 			tokens = line.split(" ")
 			#userId.map! {|u| User.find(u)}
 			Trackrating.create(:user_id => userId, :rating => tokens[1], :track_id => tokens[0])
+		end
+	end
+
+	puts "Loading validation ratings..."
+	# Adds users and their ratings to the database
+	userId = 0
+	File.open("track1/validationIdx1.firstLines.txt").each do |line|
+		tokens = line.split("|")
+		if tokens.length == 2
+			userId = tokens[0]
+		else
+			tokens = line.split(" ")
+			#userId.map! {|u| User.find(u)}
+			Validationrating.create(:user_id => userId, :rating => tokens[1], :track_id => tokens[0])
 		end
 	end
 

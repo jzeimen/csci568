@@ -13,6 +13,7 @@ ActiveRecord::Base.establish_connection(
 class Track < ActiveRecord::Base
 	has_and_belongs_to_many :genres
 	has_many :trackratings
+	has_many :validationratings
 	attr_accessible :id, :genres
 end
 
@@ -25,7 +26,7 @@ end
 class User < ActiveRecord::Base
 	has_many :genreratings
 	has_many :trackratings
-
+	has_many :validationratings
 	attr_accessible :id, :genreratings, :trackratings
 end
 
@@ -35,6 +36,11 @@ class Trackrating < ActiveRecord::Base
 	attr_accessible :user_id, :rating, :track_id
 end
 
+class Validationrating < ActiveRecord::Base
+	belongs_to :user
+	belongs_to :track
+	attr_accessible :user_id, :rating, :track_id
+end
 
 class Genrerating < ActiveRecord::Base
 	belongs_to :user
