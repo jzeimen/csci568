@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Association Analysis</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1><a href="index.html">Association Analysis</a></h1>
+  <h2>The Classic Mushroom Dataset</h2>
+  <p>Association analysis is a data mining strategy use to find interesting relationships hidden in large data sets. The classic data set for this approach is market basket data, lists of items purchased separated out by transaction. 
+Market basket data looks like:<br>
+T1: {apples, pears}<br>
+T2: {bananas, apples}<br>
+T3: {apples, bananas, pears}<br>
+</p>
+
+<p>At a high-level view association analysis first finds item sets. And then breaks down the item sets into association rules. For example if there is an item set {apples, bananas, pears}. We could generate the following association rules: {apples} → {bananas, pears}; {apples, bananas}→{pears}; {apples, pears}→{bananas}; {bananas}→{pears, apples}; {bananas, pears}→{apples}; {pears}→ {bananas, apples}. The association rules can be translated into meaning. For example the first on in the list above says if a transaction has apples, it is very likely that it will also have bananas and pears. Those are just all of the possible rules for the items in our “store.” In a real environment you could generate a ton of rules.</p>
+<p>To weed out the bad rules and get only meaningful ones. There are a few measures we can define to quantify what makes a good rule and what does not. For the following examples of these measures I will be using the association rule  {bananas}→{apples}, which comes from the item set {bananas apples}. </p>
+<h3>Support Count:</h3>
+<p> This is simply how many transactions have the specific item set. So in our example we just look at all of our transactions and ask how many have bananas and apples in them. In our case it is 2.</p>
+<h3>Support:</h3>
+<p> Support is the fraction support count divided by the number of transactions. It is the fraction of how frequently an item set occurs in the data. So for our example support is 2/3. </p>
+<h3>Confidence:</h3>
+<p> Confidence is the fraction of the support count divided by the support count of just the left side of our association rule. We already know the support count for the rule {bananas}→{apples} is 2. The support count for just bananas is also 2, because there are 2 transactions with bananas in them. So our confidence is 1. This is measuring how often, when one thing is present, the other thing occurs. </p>
+
+<p>After all of the association rules are generated, they can be evaluated using support and confidence, and the best ones can be used to draw conclusions from the data. 
+</p>
+<p>
+This is all very simple to understand, the trick to this approach is that to find all of the item sets is very costly both in time complexity and storage space. The classic way to reduce this is to apply the apriori principal to the problem. We can have item sets with just apples, or just bananas, or just pears. But what happens if 100 transactions have bananas or apples, and only one has pears? We can quickly assume that an item set containing pears and apples is not likely so we can choose not to calculate it because it will not get the support to include it in a rule anyways
+</p>
+
+
+</div>
+</body>
+</html>
