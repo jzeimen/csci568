@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Classification</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Data Mining Portfolio</h1>
+  <h2>Application: 2011 KDD Cup Challenge, Track 1</h2>
+  <p class="introduction">The goal for this project is to take data on users ratings of music tracks, do some preprocessing and mining of this data. Then, predict what users would say is their rating of some reserved test data. This test data has 6 tracks rated by users so we can see how well the predictions match and find the SSE. 
+
+  <h3>Data/Preprocessing </h3>
+  <p>For this project I pulled the data out of the text files and put it in an sqlite3 database. I used Active Record in Ruby to accomplish this. This also gave me my first taste of how much of a burden big data is. For just the sample data set it took tens of minutes to load the data into a database. This was only 43 users and about 5000 ratings. When trying to load the entire full dataset (250 million ratings) after many hours I my computers could not make a dent in creating a database.</p>
+
+
+  <h3>K-Nearest Neighbors</h3>
+  <p>	  Next I try to find the K-Nearest Neighbors for each user. I do this by finding the cosine similarity between the users ratings for genres I calculated and sorting them. I found predictions for tracks based on 1 through 5 different users.</p>
+
+  <p>	Hunt's Algorithm is very simple and there is much room for improvement. One of the first improvements that can be made is to try different splits on the data to see which one creates more pure leaf nodes. If there is no attribute to split on that improves the purity them maybe the algorithm should stop and just label that node with the majority class. </p>
+  <p>	Some possible errors to watch out for, as with all classification algorithms is over fitting or under fitting the model. By letting all of the leaf nodes become pure we may be trying to fit data points into too tight of boxes and have a larger error. If we ask too few questions and have very impure leaf nodes our error will also go up. A balance between the two may involve pre or post pruning of the tree to allow it to best fit the data. </p>
+
+ 
+  <h3>Predictions</h3>
+  <p>	  To predict an items rating I looked at the genres an item has. Then looked at the ratings for those genres based on the k-nearest neighbors. I averaged the all of the ratings for the related genres together to produce a prediction. I also produced predicitions based off of always guessing at 0 and 50 for the rating.  </p>
+
+<h3>Results</h3>
+<p>It turns out that this method is not that much better than just guessing a 50 for each rating. Also taking the k-nearest neighbors into consideration did not help at all. This could be due to the fact that I only looked at track data instead of albums and artists. It also could be due to the fact that this is a very small data set for how many possible tracks and genres we have available. I think that these results would drastically improve with using all of the data, but the way I have it set up to load data and calculate it would take an impossibly long time.  </p>
+
+<table>
+  <tr>
+    <th> Parameters </th>
+    <th> RMSE </th>
+  </tr>
+  <tr>
+    <td>K=0 (No neighbors)</td>
+    <td>33.23133880075095</td>
+  </tr>
+    <tr>
+    <td>K=1</td>
+    <td>34.42957327725322</td>
+  </tr>
+    <tr>
+    <td>K=2</td>
+    <td>34.72420404523897</td>
+  </tr>
+    <tr>
+    <td>K=3</td>
+    <td>35.495991225731515</td>
+  </tr>
+    <tr>
+    <td>K=4</td>
+    <td>35.980202311206995</td>
+  </tr>
+    <tr>
+    <td>K=5</td>
+    <td>36.771751522010064</td>
+  </tr>
+    <tr>
+    <td>Always Predict 50</td>
+    <td>36.46916505762094</td>
+  </tr>
+    <tr>
+    <td>Always Predict 0</td>
+    <td>72.73238618387272</td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
