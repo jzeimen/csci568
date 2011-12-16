@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>The Badges Problem</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1><a href="index.html">Data Mining Portfolio</a></h1>
+  <h2>The Badges Problem</h2>
+  <p class="introduction">In this project I was to take a list of names and a + or - next to them, representing a winner or a looser. I took this and did feature extraction from the names. With those new features I could then identify what in a name made them a looser or winner.</p>
+
+  <p> First I did a quick analysis of the data in a spreadsheet program. I calculated that about 2/3 of the people were winners while only 1/3 were losers. I then separated the data out by sorting on the winning and loosing label to see what patterns might arise that I could visually see. There did not seem to be a discernable pattern. The data was more hidden than that. </p>
+  <p> Next I tried sorting the data based on the name. This showed some patterns in the data that started to lead me closer to a solution. I noticed that some of the names that started with certain letters seemed more likely to be almost all losers or almost all winners. I figured this could be one of the possible characteristics to make a classification on. I also noticed something really interesting in that all Thomases were losers while all Toms were winners. This could be name length or how it relates to the last name or some other unknown attribute. </p>
+  <p> After the initial exploration of the data, I wrote a script that would take in names and extract features from each of the names. One of the first features I extracted was the first letter of the first name followed by number of letters in the names. This script produced a CSV file, which is one of the file formats that Weka can read. I decided to use the J48 algorithm because Weka is able to visually show a tree of the data. Upon running this initial test it is obvious that this does not give Weka enough information to classify with great accuracy the data.</p>
+  <img src="images/wekaclass1.png" WIDTH="500" HEIGHT="268">
+  <p>My next approach was to look at different types of letters. We have consonants and vowels, which can be easily extracted. So I used the counts from that and got about the same results as before in Weka. </p>
+  <img src="images/wekaclass2.png" WIDTH="500" HEIGHT="262">
+  <p>Looking back at how Thomases are losers while Toms are not, I decided that this is how I will get my foot in the door. Because each of those first names have the exact same label of winner or loser, it makes me think that the middle and last name have no relation to the fact of who is a winner. So, what seperates “Thomas” from “Tom”? The length of the name doesn’t really make sense because there visually those other names don’t show that pattern. How about the other letters in the name? So lets look at the second letter. </p>
+  <img src="images/wekaclass3.png" WIDTH="500" HEIGHT="509">
+
+  <p>98% Classification. That’s pretty good. Looking at what the second letter classified as winners turns out to be a, e, i, o, or u. Which we can easily recognize are vowels. So after adding an attribute of the second letter being a vowel we find that this is indeed true. We get the same split and a very simple tree:</p>
+
+  <img src="images/answertree.png" WIDTH="500" HEIGHT="418">
+  <p>The errors the noise in the data indeed are characters in The Office. </p>
+
+</div>
+</body>
+</html>
