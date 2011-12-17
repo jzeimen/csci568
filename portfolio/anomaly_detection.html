@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Anomaly Detection</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1><a href="index.html">Association Analysis</a></h1>
+  <h2>Anomaly Detection</h2>
+  <p>Anomaly detection is used to try and find data object that are different from almost every other piece of data in the dataset. This could be useful for finding frodulant purchases on a credit card, or finding outliers in data. Anomalies could be erroneous data, or something like a donor that always gives more than the others. You want to be aware of anomalies, because they may be a key to success or failure. The main thing is that anomalies are a very broad term to simply define data points that are not like the others. This is very domain specific to what it means.
+</p>
+
+<h3>Statistical-Based Approach:</h3>
+<p>	Statistical approaches find outliers by finding the data points that occur, but according to the statistical model have a low probability of occurring. This is usually done with one attribute. Data points that occur less frequently, or are in a section of a probability distribution that is very low, are considered anomalies.  </p>
+<p>	The strengths for statistical approaches is that they are usually easy to understand why a specific data point is an anomaly. One downside is that it is more difficult to find anomalies using many dimensions. </p>
+
+<h3>Proximity Approach</h3>
+<p>	To find anomalies based on proximity, the distance from each data point to its nearest neighbors is calculated. This can be thought of as looking at a scatterplot and seeing the points that are not close to any other points. The distance is calculated by using a relevant similarity metric. </p>
+<p>	This is easier to do in higher dimensions than statistical approaches; however, it is usually done in n-squared time. For very large datasets this could be too difficult to calculate. It is also hard to separate out anomalies from less dense portions of the data. </p>
+
+<h3>Density-based Approach</h3>
+<p>	The anomaly score of an object is defined as the inverse of its density. The density is calculated by finding the sum of the distances to its k-nearest neighbors divided by k. This can work better than proximity approaches in data with varying density, but still can take n-squared time to calculate. </p>
+<h3>Clustering-based Approach</h3>
+<p>	Clustering the data using familiar approaches can be used to help find anomalies. This finds groups of data that are close together. Clusters that have very few items might be an anomaly. It is also possible to calculate the distance from the average of a centroid a data point belongs to. The data points that are very far from their centroids are also more likely to be anomalies. This approach can be very fast to calculate. Clustering and anomaly detection can be combined so that outliers and clusters can be found at the same time. This approach is very dependent on how good the generated clusters are. If the clusters are better it is easier to find anomalies and the more accurate they will be. </p>
+
+
+</div>
+</body>
+</html>
